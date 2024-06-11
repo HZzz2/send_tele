@@ -10,6 +10,7 @@ use rusty_ytdl::Video;
 use rusty_ytdl::VideoOptions;
 use rusty_ytdl::VideoQuality;
 use rusty_ytdl::VideoSearchOptions;
+// use tokio::fs;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
@@ -27,7 +28,7 @@ async fn main() -> Result<(), anyhow::Error> {
         .build();
     // 如果发送失败则下载低质量音频发送
     if let Err(_error) = api.send_audio(&params).await {
-        let _ = std::fs::remove_file(file);
+        // let _ = std::fs::remove_file(file);
         // 高品质音频超过50MB会发送失败，将尝试下载低品质音频
         let file_low = down_m4a(url, VideoQuality::Lowest).await?;
         // 构造发送音频参数
@@ -46,10 +47,13 @@ async fn main() -> Result<(), anyhow::Error> {
             let _ = api.send_message(&mes).await;
         } else {
             let _ = std::fs::remove_file(file_low);
+
         }
-    } else {
-        let _ = std::fs::remove_file(file);
-    }
+    } 
+    // 低品质音频发送失败时，高品质音频保存在当前目录,以供上传刀TG群组中，使用tdl项目
+    // else {
+    //     let _ = std::fs::remove_file(file);
+    // }
     Ok(())
 }
 

@@ -12,10 +12,11 @@ anyhow = "1.0.86"
 # frankenstein = "0.30.8"
 frankenstein = { version = "0.31.0", default-features = false, features = ["async-http-client"] }
 rusty_ytdl = "0.7.1"
+telexide = "0.1.17"
 tokio = { version = "1.37.0", features = ["full"] }
 
 
 # cargo build -r
 # 配合我的telegram bot程序使用（后面会开源），需要放在/usr/bin目录下。此程序也可单独使用
-# cp target/release/send_tele /usr/bin
-# chmod +x /usr/bin/send_tele
+# cp target/release/send_tele /root/tele_bot
+# chmod +x /root/tele_bot
